@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adsb-station"
+version = "0.1.0"
+description = "Home ADS-B receiver station: ingest, store and visualise live aircraft traffic."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Elias Garcia Cortes" }]
+# Phase 0 runs on the standard library only (asyncio + sqlite3).
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+adsb-ingest = "adsb_station.ingest:main"
+adsb-replay = "adsb_station.tools.replay:main"
+adsb-record = "adsb_station.tools.record:main"
+adsb-simulate = "adsb_station.tools.simulate:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
